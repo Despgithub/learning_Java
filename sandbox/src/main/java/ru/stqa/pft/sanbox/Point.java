@@ -3,9 +3,9 @@ package ru.stqa.pft.sanbox;
 public class Point {
     double x, y;
 
-    public Point(double x1, double y1) {
-        this.x = x1;
-        this.y = y1;
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
     public double distance(Point p2) {
