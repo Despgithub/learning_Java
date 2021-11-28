@@ -1,18 +1,20 @@
-package ru.stqa.pft.addressbook.appmanager;
+package ru.stqa.pft.addressbook;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.stqa.pft.addressbook.model.GroupData;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 import java.util.concurrent.TimeUnit;
 
-public class ApplicationManager {
+public class TestBase {
     WebDriver wd;
 
-    public void init() {
+    @BeforeMethod
+    public void setUp() {
         wd = new ChromeDriver();
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
@@ -27,19 +29,19 @@ public class ApplicationManager {
         wd.findElement(By.xpath("//input[@value='Login']")).click();
     }
 
-    public void logout() {
+    protected void logout() {
         wd.findElement(By.linkText("Logout")).click();
     }
 
-    public void returnToGroupPage() {
+    protected void returnToGroupPage() {
         wd.findElement(By.linkText("group page")).click();
     }
 
-    public void submitGroupCreation() {
+    protected void submitGroupCreation() {
         wd.findElement(By.name("submit")).click();
     }
 
-    public void fillGroupForm(GroupData groupData) {
+    protected void fillGroupForm(GroupData groupData) {
         wd.findElement(By.name("group_name")).clear();
         wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
         wd.findElement(By.name("group_header")).clear();
@@ -48,19 +50,20 @@ public class ApplicationManager {
         wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
     }
 
-    public void initGroupCreation() {
+    protected void initGroupCreation() {
         wd.findElement(By.name("new")).click();
     }
 
-    public void gotoGroupPage() {
+    protected void gotoGroupPage() {
         wd.findElement(By.linkText("groups")).click();
     }
 
-    public void stop() {
+    @AfterMethod
+    public void tearDown() {
         wd.quit();
     }
 
-    public boolean isElementPresent(By by) {
+    private boolean isElementPresent(By by) {
         try {
             wd.findElement(by);
             return true;
@@ -69,7 +72,7 @@ public class ApplicationManager {
         }
     }
 
-    public boolean isAlertPresent() {
+    private boolean isAlertPresent() {
         try {
             wd.switchTo().alert();
             return true;
@@ -78,11 +81,11 @@ public class ApplicationManager {
         }
     }
 
-    public void deleteSelectedGroups() {
+    protected void deleteSelectedGroups() {
         wd.findElement(By.name("delete")).click();
     }
 
-    public void selectGroup() {
+    protected void selectGroup() {
         wd.findElement(By.name("selected[]")).click();
     }
 }
