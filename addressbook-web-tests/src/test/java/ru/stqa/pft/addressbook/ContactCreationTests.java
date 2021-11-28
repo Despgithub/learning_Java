@@ -1,8 +1,7 @@
-package ru.stqa.pft.contact;
+package ru.stqa.pft.addressbook;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -12,17 +11,17 @@ import org.testng.annotations.Test;
 import java.util.concurrent.TimeUnit;
 
 public class ContactCreationTests {
-    private WebDriver wd;
+    WebDriver wd;
 
     @BeforeMethod
     public void setUp() {
         wd = new ChromeDriver();
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        wd.get("http://localhost/addressbook/");
         login("admin", "secret");
     }
 
     private void login(String username, String password) {
+        wd.get("http://localhost/addressbook/");
         wd.findElement(By.name("user")).clear();
         wd.findElement(By.name("user")).sendKeys(username);
         wd.findElement(By.name("pass")).clear();
@@ -32,13 +31,13 @@ public class ContactCreationTests {
 
     @Test
     public void testContactCreation() {
-        gotoAddContactPage();
+        gotoContactCreationPage();
         fillContactForm(new ContactData("Ostap", "Suleiman Berta Maria", "Bender",
-                "0$ia", "The great combinator", "Horns and hooves",
-                "Russia,Moscow, Old Arbat street 13,1", "4950000000", "+79111111111",
-                "0$ia@bender.ru", "www.horns&hooves.com"));
-        submitContactCreation();
-        gotoHomePage();
+                "0$ia", "The great combinator", "Horns and hooves", "Russia,Moscow, " +
+                "Old Arbat street 13,1", "4950000000", "+79111111111", "0$ia@bender.ru",
+                "www.horns&hooves.com"));
+        submitGroupCreation();
+        returnToHomePage();
         logout();
     }
 
@@ -46,11 +45,11 @@ public class ContactCreationTests {
         wd.findElement(By.linkText("Logout")).click();
     }
 
-    private void gotoHomePage() {
+    private void returnToHomePage() {
         wd.findElement(By.linkText("home")).click();
     }
 
-    private void submitContactCreation() {
+    private void submitGroupCreation() {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
@@ -79,22 +78,13 @@ public class ContactCreationTests {
         wd.findElement(By.name("homepage")).sendKeys(contactData.getHomepage());
     }
 
-    private void gotoAddContactPage() {
+    private void gotoContactCreationPage() {
         wd.findElement(By.linkText("add new")).click();
     }
 
     @AfterMethod
     public void tearDown() {
         wd.quit();
-    }
-
-    private boolean isElementPresent(By by) {
-        try {
-            wd.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
     }
 
     private boolean isAlertPresent() {

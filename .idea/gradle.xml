@@ -19,18 +19,6 @@
         <option name="delegatedBuild" value="false" />
         <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/contact-tests" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../gradle-6.9.1" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/contact-tests" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="delegatedBuild" value="false" />
-        <option name="testRunner" value="PLATFORM" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/sandbox" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../gradle-6.9.1" />
         <option name="modules">
