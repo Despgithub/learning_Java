@@ -29,7 +29,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectContact() {
-        click(By.xpath("//table[@id='maintable']//input"));
+        click(By.xpath("//tr[2]//input"));
     }
 
     public void deleteSelectedContacts() {
