@@ -35,7 +35,7 @@ public class ApplicationManager {
         } else if (browser.equals(Browser.OPERA)) {
             wd = new OperaDriver();
         }
-        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
         wd.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(wd);
         contactHelper = new ContactHelper(wd);
