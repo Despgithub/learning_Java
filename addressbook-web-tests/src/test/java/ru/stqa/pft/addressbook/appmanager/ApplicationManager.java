@@ -6,7 +6,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
-import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.Browser;
 
 import java.time.Duration;
 
@@ -17,22 +17,22 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
-    private String browser;
+    private final Browser browser;
 
-    public ApplicationManager(String browser) {
+    public ApplicationManager(Browser browser) {
         this.browser = browser;
     }
 
     public void init() {
-        if (browser.equals(BrowserType.CHROME)) {
+        if (browser.equals(Browser.CHROME)) {
             wd = new ChromeDriver();
-        } else if (browser.equals(BrowserType.FIREFOX)) {
+        } else if (browser.equals(Browser.FIREFOX)) {
             wd = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.IE)) {
+        } else if (browser.equals(Browser.IE)) {
             wd = new InternetExplorerDriver();
-        } else if (browser.equals(BrowserType.EDGE)) {
+        } else if (browser.equals(Browser.EDGE)) {
             wd = new EdgeDriver();
-        } else if (browser.equals(BrowserType.OPERA)) {
+        } else if (browser.equals(Browser.OPERA)) {
             wd = new OperaDriver();
         }
         wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
