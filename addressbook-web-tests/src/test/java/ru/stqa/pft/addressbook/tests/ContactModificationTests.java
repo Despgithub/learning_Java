@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
@@ -14,6 +15,7 @@ public class ContactModificationTests extends TestBase {
                     , "www.horns&hooves.com"));
         }
         app.getNavigationHelper().gotoHomePage();
+        int before = app.getContactHelper().getConactCount();
         app.getContactHelper().initContactModification();
         app.getContactHelper().fillContactForm(new ContactData("Ippolit", "Matveevich", "Vorobyaninov",
                 "Kitty", "marshal of the nobility", "Department of finance", "Russia,Moscow, " +
@@ -21,6 +23,8 @@ public class ContactModificationTests extends TestBase {
                 , "www.gold.com"), false);
         app.getContactHelper().submitContactModification();
         app.getNavigationHelper().gotoHomePage();
+        int after = app.getContactHelper().getConactCount();
+        Assert.assertEquals(after, before);
         app.getSessionHelper().logout();
     }
 }

@@ -36,7 +36,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectContact() {
-        click(By.xpath("//tr[2]//input"));
+        click(By.name("selected[]"));
     }
 
     public void deleteSelectedContacts() {
@@ -68,5 +68,9 @@ public class ContactHelper extends HelperBase {
 
     public boolean isThereAContact() {
         return isElementPresent(By.xpath("//tr[2]//input"));
+    }
+
+    public int getConactCount() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 }
