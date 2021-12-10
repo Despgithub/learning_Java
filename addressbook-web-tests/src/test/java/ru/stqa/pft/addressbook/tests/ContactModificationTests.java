@@ -25,7 +25,6 @@ public class ContactModificationTests extends TestBase {
         app.getNavigationHelper().gotoHomePage();
         int after = app.getContactHelper().getConactCount();
         Assert.assertEquals(after, before);
-        app.getSessionHelper().logout();
     }
 }
 
