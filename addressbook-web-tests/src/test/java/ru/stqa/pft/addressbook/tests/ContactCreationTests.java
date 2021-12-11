@@ -6,7 +6,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactCreationTests extends TestBase {
 
-    @Test(invocationCount = 1, enabled = true)
+    @Test
     public void testContactCreation() {
         int before = app.getContactHelper().getConactCount();
         app.getContactHelper().gotoContactCreationPage();
