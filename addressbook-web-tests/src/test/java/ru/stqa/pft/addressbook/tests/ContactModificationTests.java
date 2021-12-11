@@ -16,7 +16,7 @@ public class ContactModificationTests extends TestBase {
         }
         app.getNavigationHelper().gotoHomePage();
         int before = app.getContactHelper().getConactCount();
-        app.getContactHelper().initContactModification();
+        app.getContactHelper().initContactModification(before - 1);
         app.getContactHelper().fillContactForm(new ContactData("Ippolit", "Matveevich", "Vorobyaninov",
                 "Kitty", "marshal of the nobility", "Department of finance", "Russia,Moscow, " +
                 "Old Arbat street 1,5", "4951111111", "+792222222", "IppolitMatveevich@gold.ru", null
