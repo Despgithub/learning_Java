@@ -32,7 +32,7 @@ public class ContactModificationTests extends TestBase {
 
         before.remove(before.size() - 1);
         before.add(contact);
-        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
+        Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
         before.sort(byId);
         after.sort(byId);
         Assert.assertEquals(before, after);

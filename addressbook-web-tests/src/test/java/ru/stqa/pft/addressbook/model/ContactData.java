@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.util.Objects;
+
 public class ContactData {
     private int id;
     private final String firstname;
@@ -12,7 +14,7 @@ public class ContactData {
     private final String homephone;
     private final String mobile;
     private final String email;
-    private String group;
+    private final String group;
 
     private final String homepage;
 
@@ -122,8 +124,8 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
-        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+        if (!Objects.equals(firstname, that.firstname)) return false;
+        return Objects.equals(lastname, that.lastname);
     }
 
     @Override
