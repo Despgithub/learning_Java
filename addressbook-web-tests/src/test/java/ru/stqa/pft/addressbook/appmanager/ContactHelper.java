@@ -74,7 +74,7 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.xpath("//tr[2]//input"));
     }
 
-    public int getConactCount() {
+    public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
     }
 
@@ -82,10 +82,11 @@ public class ContactHelper extends HelperBase {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name = 'entry']"));
         for (WebElement element : elements) {
-            List<WebElement> cells = element.findElements(By.xpath("//tr[@name = 'entry']/td"));
+            List<WebElement> cells = element.findElements(By.tagName("td"));
             String firstname = cells.get(2).getText();
             String lastname = cells.get(1).getText();
-            ContactData contact = new ContactData(firstname, null, lastname, null, null, null,
+            String id = element.findElement(By.tagName("input")).getAttribute("value");
+            ContactData contact = new ContactData(id, firstname, null, lastname, null, null, null,
                     null, null, null, null, null, null);
             contacts.add(contact);
         }
