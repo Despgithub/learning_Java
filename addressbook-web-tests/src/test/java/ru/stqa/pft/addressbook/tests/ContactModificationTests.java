@@ -14,7 +14,7 @@ public class ContactModificationTests extends TestBase {
         if (!app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new ContactData("Ostap", "Suleiman Berta Maria", "Bender",
                     "0$ia", "The great combinator", "Horns and hooves", "Russia,Moscow, " +
-                    "Old Arbat street 13,1", null, "+79111111111", "0$ia@bender.ru", "[none]"
+                    "Old Arbat street 13,1", null, "+79111111111", "0$ia@bender.ru", 1
                     , "www.horns&hooves.com"));
         }
         app.goTo().gotoHomePage();
@@ -22,7 +22,7 @@ public class ContactModificationTests extends TestBase {
         app.getContactHelper().initContactModification(before.size() - 1);
         ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "Ippolit", "Matveevich", "Vorobyaninov",
                 "Kitty", "marshal of the nobility", "Department of finance", "Russia,Moscow, " +
-                "Old Arbat street 1,5", "4951111111", "+792222222", "IppolitMatveevich@gold.ru", null
+                "Old Arbat street 1,5", "4951111111", "+792222222", "IppolitMatveevich@gold.ru", 1
                 , "www.gold.com");
         app.getContactHelper().fillContactForm(contact, false);
         app.getContactHelper().submitContactModification();

@@ -13,7 +13,7 @@ public class ContactDeletionTests extends TestBase {
         if (!app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new ContactData("Ostap", "Suleiman Berta Maria", "Bender",
                     "0$ia", "The great combinator", "Horns and hooves", "Russia,Moscow, " +
-                    "Old Arbat street 13,1", null, "+79111111111", "0$ia@bender.                                                                                                                                                    ёru", "[none]"
+                    "Old Arbat street 13,1", null, "+79111111111", "0$ia@bender.ru", 1
                     , "www.horns&hooves.com"));
         }
         app.goTo().gotoHomePage();

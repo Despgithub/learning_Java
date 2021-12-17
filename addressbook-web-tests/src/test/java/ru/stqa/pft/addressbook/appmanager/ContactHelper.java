@@ -33,7 +33,10 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contactData.getEmail());
         type(By.name("homepage"), contactData.getHomepage());
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            Select select = new Select(wd.findElement(By.name("new_group")));
+            if (select.getOptions().size() > 0) {
+                select.selectByIndex(contactData.getGroup());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -87,7 +90,7 @@ public class ContactHelper extends HelperBase {
             String lastname = cells.get(1).getText();
             int id = Integer.parseInt(element.findElement(By.xpath(".//input")).getAttribute("id"));
             ContactData contact = new ContactData(id, firstname, null, lastname, null, null, null,
-                    null, null, null, null, null, null);
+                    null, null, null, null, 0, null);
             contacts.add(contact);
         }
         return contacts;

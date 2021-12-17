@@ -14,12 +14,12 @@ public class ContactData {
     private final String homephone;
     private final String mobile;
     private final String email;
-    private final String group;
+    private final int group;
 
     private final String homepage;
 
     public ContactData(int id, String firstname, String middlename, String lastname, String nickname, String title,
-                       String company, String address, String homephone, String mobile, String email, String group, String homepage) {
+                       String company, String address, String homephone, String mobile, String email, int group, String homepage) {
         this.id = id;
         this.firstname = firstname;
         this.middlename = middlename;
@@ -36,7 +36,7 @@ public class ContactData {
     }
 
     public ContactData(String firstname, String middlename, String lastname, String nickname, String title,
-                       String company, String address, String homephone, String mobile, String email, String group, String homepage) {
+                       String company, String address, String homephone, String mobile, String email, int group, String homepage) {
         this.id = Integer.MAX_VALUE;
         this.firstname = firstname;
         this.middlename = middlename;
@@ -100,7 +100,7 @@ public class ContactData {
         return homepage;
     }
 
-    public String getGroup() {
+    public int getGroup() {
         return group;
     }
 
