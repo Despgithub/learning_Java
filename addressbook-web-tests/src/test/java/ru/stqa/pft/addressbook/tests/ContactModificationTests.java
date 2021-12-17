@@ -17,7 +17,7 @@ public class ContactModificationTests extends TestBase {
                     "Old Arbat street 13,1", null, "+79111111111", "0$ia@bender.ru", "[none]"
                     , "www.horns&hooves.com"));
         }
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().initContactModification(before.size() - 1);
         ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "Ippolit", "Matveevich", "Vorobyaninov",
@@ -26,7 +26,7 @@ public class ContactModificationTests extends TestBase {
                 , "www.gold.com");
         app.getContactHelper().fillContactForm(contact, false);
         app.getContactHelper().submitContactModification();
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size());
 

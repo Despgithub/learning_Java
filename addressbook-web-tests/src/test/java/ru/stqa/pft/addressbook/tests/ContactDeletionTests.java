@@ -16,12 +16,12 @@ public class ContactDeletionTests extends TestBase {
                     "Old Arbat street 13,1", null, "+79111111111", "0$ia@bender.                                                                                                                                                    ёru", "[none]"
                     , "www.horns&hooves.com"));
         }
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().deleteSelectedContacts();
         app.getContactHelper().closeAlert();
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() - 1);
 

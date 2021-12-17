@@ -11,7 +11,7 @@ public class ContactCreationTests extends TestBase {
 
     @Test(enabled = true, invocationCount = 1)
     public void testContactCreation() {
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().gotoContactCreationPage();
         ContactData contact = new ContactData("Ostap", "Suleiman Berta Maria", "Bender",
@@ -19,7 +19,7 @@ public class ContactCreationTests extends TestBase {
                 "Old Arbat street 13,1", null, "+79111111111", "0$ia@bender.ru", "[none]"
                 , "www.horns&hooves.com");
         app.getContactHelper().createContact(contact);
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() + 1);
 
