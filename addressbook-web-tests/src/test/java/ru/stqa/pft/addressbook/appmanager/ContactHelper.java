@@ -34,12 +34,13 @@ public class ContactHelper extends HelperBase {
         type(By.name("homepage"), contactData.getHomepage());
         if (creation) {
             Select select = new Select(wd.findElement(By.name("new_group")));
-            if (select.getOptions().size() > 0) {
+            if (select.getOptions().size() > 0 && select.getOptions().size() > contactData.getGroup()) {
                 select.selectByIndex(contactData.getGroup());
             }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
+
     }
 
     public void selectContact(int index) {
@@ -88,7 +89,7 @@ public class ContactHelper extends HelperBase {
             List<WebElement> cells = element.findElements(By.xpath(".//td"));
             String firstname = cells.get(2).getText();
             String lastname = cells.get(1).getText();
-            int id = Integer.parseInt(element.findElement(By.xpath(".//input")).getAttribute("id"));
+            int id = Integer.parseInt(element.findElement(By.xpath(".//input")).getAttribute("value"));
             ContactData contact = new ContactData(id, firstname, null, lastname, null, null, null,
                     null, null, null, null, 0, null);
             contacts.add(contact);
