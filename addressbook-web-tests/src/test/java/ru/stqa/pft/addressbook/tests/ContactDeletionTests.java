@@ -12,10 +12,7 @@ public class ContactDeletionTests extends TestBase {
     @BeforeMethod
     public void insurePreconditions() {
         if (app.contact().list().size() == 0) {
-            app.contact().create(new ContactData("Ostap", "Suleiman Berta Maria", "Bender",
-                    "0$ia", "The great combinator", "Horns and hooves", "Russia,Moscow, " +
-                    "Old Arbat street 13,1", null, "+79111111111", "0$ia@bender.ru", 1
-                    , "www.horns&hooves.com"));
+            app.contact().create(new ContactData().withFirstname("Ostap").withLastname("Bender"));
         }
         app.goTo().homePage();
     }

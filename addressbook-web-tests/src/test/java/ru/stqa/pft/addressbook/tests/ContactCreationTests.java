@@ -14,10 +14,7 @@ public class ContactCreationTests extends TestBase {
         app.goTo().homePage();
         List<ContactData> before = app.contact().list();
         app.contact().createContactPage();
-        ContactData contact = new ContactData("Ostap", "Suleiman Berta Maria", "Bender",
-                "0$ia", "The great combinator", "Horns and hooves", "Russia,Moscow, " +
-                "Old Arbat street 13,1", null, "+79111111111", "0$ia@bender.ru", 1
-                , "www.horns&hooves.com");
+        ContactData contact = new ContactData().withFirstname("Ostap").withLastname("Bender");
         app.contact().create(contact);
         app.goTo().homePage();
         List<ContactData> after = app.contact().list();
