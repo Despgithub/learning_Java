@@ -162,4 +162,5 @@ public class ContactData {
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
     }
+
 }

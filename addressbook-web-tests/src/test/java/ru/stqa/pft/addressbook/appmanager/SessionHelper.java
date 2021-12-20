@@ -18,4 +18,5 @@ public class SessionHelper extends HelperBase {
     public void logout() {
         click(By.linkText("Logout"));
     }
+
 }
