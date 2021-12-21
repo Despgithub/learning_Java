@@ -16,14 +16,20 @@ public class ContactData {
     private String email;
     private int group;
     private String homepage;
+    private String workphone;
 
     public String getFirstname() {
         return firstname;
     }
 
+    public String getWorkphone() {
+        return workphone;
+    }
+
     public int getId() {
         return id;
     }
+
 
     public String getMiddlename() {
         return middlename;
@@ -114,8 +120,13 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withHomephone(String homephone) {
+    public ContactData withHomePhone(String homephone) {
         this.homephone = homephone;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String workphone) {
+        this.workphone = workphone;
         return this;
     }
 
