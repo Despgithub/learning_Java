@@ -45,12 +45,7 @@ public class ContactInfoTests extends TestBase {
 
     private String mergeEmails(ContactData contact) {
         return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
-                .stream().filter((e) -> !e.equals("")).map(ContactInfoTests::cleanedEmails)
-                .collect(Collectors.joining("\n"));
-    }
-
-    public static String cleanedEmails(String email) {
-        return email.replaceAll("\\s", "");
+                .stream().filter((e) -> !e.equals("")).collect(Collectors.joining("\n"));
     }
 
     private String mergeAddress(ContactData contact) {
