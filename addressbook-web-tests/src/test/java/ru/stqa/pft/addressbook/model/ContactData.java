@@ -22,7 +22,7 @@ public class ContactData {
         return firstname;
     }
 
-    public String getWorkphone() {
+    public String getWorkPhone() {
         return workphone;
     }
 
@@ -55,7 +55,7 @@ public class ContactData {
         return address;
     }
 
-    public String getHomephone() {
+    public String getHomePhone() {
         return homephone;
     }
 

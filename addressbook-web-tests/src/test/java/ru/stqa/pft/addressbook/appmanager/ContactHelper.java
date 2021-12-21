@@ -28,9 +28,9 @@ public class ContactHelper extends HelperBase {
         type(By.name("title"), contactData.getTitle());
         type(By.name("company"), contactData.getCompany());
         type(By.name("address"), contactData.getAddress());
-        type(By.name("home"), contactData.getHomephone());
+        type(By.name("home"), contactData.getHomePhone());
         type(By.name("mobile"), contactData.getMobile());
-        type(By.name("work"), contactData.getWorkphone());
+        type(By.name("work"), contactData.getWorkPhone());
         type(By.name("email"), contactData.getEmail());
         type(By.name("homepage"), contactData.getHomepage());
         if (creation) {
@@ -118,8 +118,10 @@ public class ContactHelper extends HelperBase {
             List<WebElement> cells = element.findElements(By.xpath(".//td"));
             String firstname = cells.get(2).getText();
             String lastname = cells.get(1).getText();
+            String[] phones = cells.get(5).getText().split("\n");
             int id = Integer.parseInt(element.findElement(By.xpath(".//input")).getAttribute("value"));
-            contactCashe.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
+            contactCashe.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
+                    .withHomePhone(phones[0]).withMobile(phones[1]).withWorkPhone(phones[2]));
         }
         return contactCashe;
     }
