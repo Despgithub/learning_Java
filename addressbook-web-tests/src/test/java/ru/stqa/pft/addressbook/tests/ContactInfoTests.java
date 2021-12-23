@@ -18,7 +18,7 @@ public class ContactInfoTests extends TestBase {
             app.contact().create(new ContactData().withFirstname("Ostap").withLastname("Bender")
                     .withAddress("Russia,Moscow, Old Arbat street 13, kv 1").withHomePhone("111111")
                     .withMobile("222222").withWorkPhone("333333").withEmail("email@test.ru")
-                    .withEmail2("email2@test.ru").withEmail3("email3@test.ru").withHomePhone2("444444"));
+                    .withEmail2("email2@test.ru").withEmail3("email3@test.ru").withSecondPhone("444444"));
         }
         app.goTo().homePage();
     }
@@ -34,7 +34,7 @@ public class ContactInfoTests extends TestBase {
     }
 
     private String mergePhones(ContactData contact) {
-        return Stream.of(contact.getHomePhone(), contact.getMobile(), contact.getWorkPhone(), contact.getHomePhone2()).
+        return Stream.of(contact.getHomePhone(), contact.getMobile(), contact.getWorkPhone(), contact.getSecondphone()).
                 filter((s) -> !s.equals("")).map(ContactInfoTests::cleanedPhones)
                 .collect(Collectors.joining("\n"));
     }

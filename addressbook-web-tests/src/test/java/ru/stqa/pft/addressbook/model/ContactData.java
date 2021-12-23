@@ -21,7 +21,7 @@ public class ContactData {
     private String workPhone;
     private String allPhones;
     private String allEmails;
-    private String homePhone2;
+    private String secondphone;
 
 
     public String getFirstname() {
@@ -73,8 +73,8 @@ public class ContactData {
         return homePhone;
     }
 
-    public String getHomePhone2() {
-        return homePhone2;
+    public String getSecondphone() {
+        return secondphone;
     }
 
     public String getMobile() {
@@ -151,8 +151,8 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withHomePhone2(String homePhone2) {
-        this.homePhone2 = homePhone2;
+    public ContactData withSecondPhone(String secondphone) {
+        this.secondphone = secondphone;
         return this;
     }
 

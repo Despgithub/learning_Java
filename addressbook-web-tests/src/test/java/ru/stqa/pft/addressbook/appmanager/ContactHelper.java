@@ -35,7 +35,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
         type(By.name("homepage"), contactData.getHomepage());
-        type(By.name("phone2"), contactData.getHomePhone2());
+        type(By.name("phone2"), contactData.getSecondphone());
         if (creation) {
             Select select = new Select(wd.findElement(By.name("new_group")));
             if (select.getOptions().size() > 0 && select.getOptions().size() > contactData.getGroup()) {
@@ -139,7 +139,7 @@ public class ContactHelper extends HelperBase {
         String homephone = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String workphone = wd.findElement(By.name("work")).getAttribute("value");
-        String homephone2 = wd.findElement(By.name("phone2")).getAttribute("value");
+        String secondphone = wd.findElement(By.name("phone2")).getAttribute("value");
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
@@ -147,6 +147,6 @@ public class ContactHelper extends HelperBase {
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
                 .withAddress(address).withHomePhone(homephone).withMobile(mobile).withWorkPhone(workphone)
-                .withEmail(email).withEmail2(email2).withEmail3(email3).withHomePhone2(homephone2);
+                .withEmail(email).withEmail2(email2).withEmail3(email3).withSecondPhone(secondphone);
     }
 }
