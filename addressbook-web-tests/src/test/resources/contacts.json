@@ -1,14 +1,17 @@
 [
   {
-    "firstname": "Firstname 0",
-    "lastname": "Lastname 0"
+    "firstname": "Firstname0",
+    "lastname": "Lastname0",
+    "group": 1
   },
   {
-    "firstname": "Firstname 1",
-    "lastname": "Lastname 1"
+    "firstname": "Firstname1",
+    "lastname": "Lastname1",
+    "group": 2
   },
   {
-    "firstname": "Firstname 2",
-    "lastname": "Lastname 2"
+    "firstname": "Firstname2",
+    "lastname": "Lastname2",
+    "group": 3
   }
 ]
