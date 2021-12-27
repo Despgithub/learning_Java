@@ -4,6 +4,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -13,12 +16,22 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactInfoTests extends TestBase {
 
     @BeforeMethod
-    public void insurePreconditions() {
+    public void insurePreconditions() throws IOException {
         if (app.contact().all().size() == 0) {
-            app.contact().create(new ContactData().withFirstname("Ostap").withLastname("Bender")
-                    .withAddress("Russia,Moscow, Old Arbat street 13, kv 1").withHomePhone("111111")
-                    .withMobile("222222").withWorkPhone("333333").withEmail("email@test.ru")
-                    .withEmail2("email2@test.ru").withEmail3("email3@test.ru").withSecondPhone("444444"));
+            Properties properties = new Properties();
+            String target = System.getProperty("target", "local");
+            properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
+            app.contact().create(new ContactData().withFirstname(properties.getProperty("contact.name"))
+                    .withLastname(properties.getProperty("contact.lastName"))
+                    .withGroup(Integer.parseInt(properties.getProperty("contact.group")))
+                    .withWorkPhone(properties.getProperty("contact.workPhone"))
+                    .withSecondPhone(properties.getProperty("contact.workPhone2"))
+                    .withMobile(properties.getProperty("contact.mobile"))
+                    .withHomePhone(properties.getProperty("contact.homePhone"))
+                    .withAddress(properties.getProperty("contact.address"))
+                    .withEmail(properties.getProperty("contact.email"))
+                    .withEmail2(properties.getProperty("contact.email2"))
+                    .withEmail3(properties.getProperty("contact.email3")));
         }
         app.goTo().homePage();
     }

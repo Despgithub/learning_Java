@@ -5,16 +5,25 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupDeletionTests extends TestBase {
 
     @BeforeMethod
-    public void ensurePreconditions() {
+    public void ensurePreconditions() throws IOException {
         app.goTo().groupPage();
         if (app.group().all().size() == 0) {
-            app.group().create(new GroupData().withName("test1"));
+            Properties properties = new Properties();
+            String target = System.getProperty("target", "local");
+            properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
+            app.group().create(new GroupData().withName(properties.getProperty("group.name"))
+                    .withHeader(properties.getProperty("group.header"))
+                    .withFooter(properties.getProperty("group.footer")));
         }
     }
 

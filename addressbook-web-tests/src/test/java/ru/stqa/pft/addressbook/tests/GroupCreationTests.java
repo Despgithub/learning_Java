@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -64,10 +65,13 @@ public class GroupCreationTests extends TestBase {
     }
 
     @Test
-    public void testBadGroupCreation() {
+    public void testBadGroupCreation() throws IOException {
+        Properties properties = new Properties();
+        String target = System.getProperty("target", "local");
+        properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
         app.goTo().groupPage();
         Groups before = app.group().all();
-        GroupData group = new GroupData().withName("test2'");
+        GroupData group = new GroupData().withName(properties.getProperty("group.badName"));
         app.group().create(group);
         assertThat(app.group().count(), equalTo(before.size()));
         Groups after = app.group().all();
