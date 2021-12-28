@@ -22,6 +22,7 @@ public class ContactCreationTests extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContactsFromXml() throws IOException {
+        logger.info("Загрузим контакты из файла .xml");
         try (BufferedReader reader = new BufferedReader(new FileReader(("src/test/resources/contacts.xml")))) {
             String xml = "";
             String line = reader.readLine();
@@ -54,13 +55,21 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
+        logger.info("Идём на стартовую страницу");
         app.goTo().homePage();
+        logger.info("Считаем контакты до создания");
         Contacts before = app.contact().all();
+        logger.info("Перейдем на страницу создания контактов");
         app.contact().createContactPage();
+        logger.info("Создаём контакт");
         app.contact().create(contact);
+        logger.info("Возвращаемся на стартовую страницу");
         app.goTo().homePage();
+        logger.info("Убедимся, что количество контактов увеличилось на 1");
         assertThat(app.contact().Count(), equalTo(before.size() + 1));
+        logger.info("Считаем контакты после создания");
         Contacts after = app.contact().all();
+        logger.info("Убедимся, что создался нужный контакт");
         assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
     }
 

@@ -18,6 +18,7 @@ public class ContactInfoTests extends TestBase {
     @BeforeMethod
     public void insurePreconditions() throws IOException {
         if (app.contact().all().size() == 0) {
+            logger.info("Упс...контактов нет, не беда - создадим");
             Properties properties = new Properties();
             String target = System.getProperty("target", "local");
             properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
@@ -33,16 +34,21 @@ public class ContactInfoTests extends TestBase {
                     .withEmail2(properties.getProperty("contact.email2"))
                     .withEmail3(properties.getProperty("contact.email3")));
         }
+        logger.info("Идём на стартовую страницу");
         app.goTo().homePage();
     }
 
     @Test
     public void testContactInfo() {
-        app.goTo().homePage();
+        logger.info("Выберем контакт для проверки данных");
         ContactData contact = app.contact().all().iterator().next();
+        logger.info("Посмотрим данные на странице редактирования");
         ContactData contactInfoFormEditForm = app.contact().infoFromEditForm(contact);
+        logger.info("Сверим номера телефонов");
         assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFormEditForm)));
+        logger.info("Сверим электронную почту");
         assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFormEditForm)));
+        logger.info("Сверим адрес");
         assertThat(contact.getAddress(), equalTo(mergeAddress(contactInfoFormEditForm)));
     }
 
