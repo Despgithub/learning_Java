@@ -38,16 +38,14 @@ public class ContactHelper extends HelperBase {
         type(By.name("homepage"), contactData.getHomepage());
         type(By.name("phone2"), contactData.getSecondphone());
         if (creation) {
-            Select select = new Select(wd.findElement(By.name("new_group")));
-            if (select.getOptions().size() > 0 && select.getOptions().size() > contactData.getGroup()) {
-                select.selectByIndex(contactData.getGroup());
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups()
+                        .iterator().next().getName());
             } else {
-                select.selectByIndex(select.getOptions().size() - 1);
+                Assert.assertFalse(isElementPresent(By.name("new_group")));
             }
-        } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
-
     }
 
     public void selectContactById(int id) {

@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,12 +20,12 @@ public class ContactInfoTests extends TestBase {
     public void insurePreconditions() throws IOException {
         if (app.db().contacts().size() == 0) {
             logger.info("Упс...контактов нет, не беда - создадим");
+            Groups groups = app.db().groups();
             Properties properties = new Properties();
             String target = System.getProperty("target", "local");
             properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
             app.contact().create(new ContactData().withFirstname(properties.getProperty("contact.name"))
                     .withLastname(properties.getProperty("contact.lastName"))
-                    .withGroup(Integer.parseInt(properties.getProperty("contact.group")))
                     .withWorkPhone(properties.getProperty("contact.workPhone"))
                     .withSecondPhone(properties.getProperty("contact.workPhone2"))
                     .withMobile(properties.getProperty("contact.mobile"))
@@ -32,7 +33,8 @@ public class ContactInfoTests extends TestBase {
                     .withAddress(properties.getProperty("contact.address"))
                     .withEmail(properties.getProperty("contact.email"))
                     .withEmail2(properties.getProperty("contact.email2"))
-                    .withEmail3(properties.getProperty("contact.email3")));
+                    .withEmail3(properties.getProperty("contact.email3"))
+                    .inGroup(groups.iterator().next()));
         }
         logger.info("Идём на стартовую страницу");
         app.goTo().homePage();

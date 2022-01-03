@@ -4,6 +4,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,12 +19,12 @@ public class ContactDeletionTests extends TestBase {
     public void insurePreconditions() throws IOException {
         if (app.db().contacts().size() == 0) {
             logger.info("Упс...контактов нет, не беда - создадим");
+            Groups groups = app.db().groups();
             Properties properties = new Properties();
             String target = System.getProperty("target", "local");
             properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
             app.contact().create(new ContactData().withFirstname(properties.getProperty("contact.name"))
-                    .withLastname(properties.getProperty("contact.lastName"))
-                    .withGroup(Integer.parseInt(properties.getProperty("contact.group"))));
+                    .withLastname(properties.getProperty("contact.lastName")).inGroup(groups.iterator().next()));
             logger.info("Контакт создан");
         }
         logger.info("Идём на стартовую страницу");

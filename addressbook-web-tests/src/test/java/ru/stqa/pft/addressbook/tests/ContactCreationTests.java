@@ -7,12 +7,14 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -53,8 +55,8 @@ public class ContactCreationTests extends TestBase {
         }
     }
 
-    @Test(dataProvider = "validContactsFromJson")
-    public void testContactCreation(ContactData contact) {
+    @Test
+    public void testContactCreation() throws IOException {
         logger.info("Идём на стартовую страницу");
         app.goTo().homePage();
         logger.info("Считаем контакты до создания");
@@ -62,6 +64,12 @@ public class ContactCreationTests extends TestBase {
         logger.info("Перейдем на страницу создания контактов");
         app.contact().createContactPage();
         logger.info("Создаём контакт");
+        Groups groups = app.db().groups();
+        Properties properties = new Properties();
+        String target = System.getProperty("target", "local");
+        properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
+        ContactData contact = new ContactData().withFirstname(properties.getProperty("contact.name"))
+                .withLastname(properties.getProperty("contact.lastName")).inGroup(groups.iterator().next());
         app.contact().create(contact);
         logger.info("Возвращаемся на стартовую страницу");
         app.goTo().homePage();
