@@ -17,7 +17,7 @@ public class GroupModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() throws IOException {
         app.goTo().groupPage();
-        if (app.group().all().size() == 0) {
+        if (app.db().groups().size() == 0) {
             Properties properties = new Properties();
             String target = System.getProperty("target", "local");
             properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
@@ -32,14 +32,14 @@ public class GroupModificationTests extends TestBase {
         Properties properties = new Properties();
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         GroupData modifiedGroup = before.iterator().next();
         GroupData group = new GroupData().withId(modifiedGroup.getId()).withName(properties.getProperty("grouprename.name"))
                 .withHeader(properties.getProperty("grouprename.header"))
                 .withFooter(properties.getProperty("grouprename.footer"));
         app.group().modify(group);
         assertThat(app.group().count(), equalTo(before.size()));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
     }
 

@@ -16,7 +16,7 @@ public class ContactModificationTests extends TestBase {
 
     @BeforeMethod
     public void insurePreconditions() throws IOException {
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
             logger.info("Упс...контактов нет, не беда - создадим");
             Properties properties = new Properties();
             String target = System.getProperty("target", "local");
@@ -35,7 +35,7 @@ public class ContactModificationTests extends TestBase {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
         logger.info("Считаем контакты до изменения");
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         logger.info("Выберем изменяемый контакт");
         ContactData modifiedContact = before.iterator().next();
         logger.info("Изменим контакт");
@@ -46,7 +46,7 @@ public class ContactModificationTests extends TestBase {
         logger.info("Убедимся, что количество контактов не изменилось");
         assertThat(app.contact().Count(), equalTo(before.size()));
         logger.info("Считаем контакты после изменения");
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         logger.info("Убедимся что изменения прошли корректно");
         assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
     }

@@ -16,7 +16,7 @@ public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void insurePreconditions() throws IOException {
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
             logger.info("Упс...контактов нет, не беда - создадим");
             Properties properties = new Properties();
             String target = System.getProperty("target", "local");
@@ -33,7 +33,7 @@ public class ContactDeletionTests extends TestBase {
     @Test
     public void testContactDeletion() {
         logger.info("Считаем контакты до удаления");
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         logger.info("Выберем удаляемый контакт");
         ContactData deletedContact = before.iterator().next();
         logger.info("Удалим контакт");
@@ -41,7 +41,7 @@ public class ContactDeletionTests extends TestBase {
         logger.info("Убедимся, что количество контактов уменьшилось на 1");
         assertThat(app.contact().Count(), equalTo(before.size() - 1));
         logger.info("Считаем контакты после удаления");
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         logger.info("Убедимся, что удалился нужный контакт");
         assertThat(after, equalTo(before.without(deletedContact)));
     }

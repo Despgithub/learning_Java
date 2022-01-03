@@ -17,7 +17,7 @@ public class ContactInfoTests extends TestBase {
 
     @BeforeMethod
     public void insurePreconditions() throws IOException {
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
             logger.info("Упс...контактов нет, не беда - создадим");
             Properties properties = new Properties();
             String target = System.getProperty("target", "local");
