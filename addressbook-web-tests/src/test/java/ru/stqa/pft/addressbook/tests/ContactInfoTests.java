@@ -50,6 +50,7 @@ public class ContactInfoTests extends TestBase {
         assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFormEditForm)));
         logger.info("Сверим адрес");
         assertThat(contact.getAddress(), equalTo(mergeAddress(contactInfoFormEditForm)));
+        verifyContactListInUI();
     }
 
     private String mergePhones(ContactData contact) {

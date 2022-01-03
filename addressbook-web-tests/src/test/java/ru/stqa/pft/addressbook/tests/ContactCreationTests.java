@@ -71,6 +71,7 @@ public class ContactCreationTests extends TestBase {
         Contacts after = app.db().contacts();
         logger.info("Убедимся, что создался нужный контакт");
         assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
+        verifyContactListInUI();
     }
 
 }

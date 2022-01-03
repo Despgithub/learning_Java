@@ -49,6 +49,7 @@ public class ContactModificationTests extends TestBase {
         Contacts after = app.db().contacts();
         logger.info("Убедимся что изменения прошли корректно");
         assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+        verifyContactListInUI();
     }
 
 }
