@@ -7,28 +7,19 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Properties;
-
 public class ContactRemoveFromGroupTests extends TestBase {
 
     @BeforeMethod
-    public void insurePreconditions() throws IOException {
-        Properties properties = new Properties();
-        String target = System.getProperty("target", "local");
-        properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
+    public void insurePreconditions() {
         if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
-            app.group().create(new GroupData().withName(properties.getProperty("group.name"))
-                    .withHeader(properties.getProperty("group.header"))
-                    .withFooter(properties.getProperty("group.footer")));
+            app.group().create(new GroupData().withName("Name").withHeader("Header").withFooter("Footer"));
         }
         if (app.db().contacts().size() == 0) {
             Groups groups = app.db().groups();
             app.goTo().homePage();
-            app.contact().create(new ContactData().withFirstname(properties.getProperty("contact.name"))
-                    .withLastname(properties.getProperty("contact.lastName")).inGroup(groups.iterator().next()));
+            app.contact().create(new ContactData().withFirstname("Firstname").withLastname("Lastname")
+                    .inGroup(groups.iterator().next()));
         }
     }
 
