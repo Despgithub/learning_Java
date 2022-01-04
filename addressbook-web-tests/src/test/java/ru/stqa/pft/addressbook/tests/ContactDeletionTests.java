@@ -27,12 +27,11 @@ public class ContactDeletionTests extends TestBase {
                     .withLastname(properties.getProperty("contact.lastName")).inGroup(groups.iterator().next()));
             logger.info("Контакт создан");
         }
-        logger.info("Идём на стартовую страницу");
-        app.goTo().homePage();
     }
 
     @Test
     public void testContactDeletion() {
+        app.goTo().homePage();
         logger.info("Считаем контакты до удаления");
         Contacts before = app.db().contacts();
         logger.info("Выберем удаляемый контакт");

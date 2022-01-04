@@ -71,8 +71,6 @@ public class ContactCreationTests extends TestBase {
         ContactData contact = new ContactData().withFirstname(properties.getProperty("contact.name"))
                 .withLastname(properties.getProperty("contact.lastName")).inGroup(groups.iterator().next());
         app.contact().create(contact);
-        logger.info("Возвращаемся на стартовую страницу");
-        app.goTo().homePage();
         logger.info("Убедимся, что количество контактов увеличилось на 1");
         assertThat(app.contact().Count(), equalTo(before.size() + 1));
         logger.info("Считаем контакты после создания");

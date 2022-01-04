@@ -26,8 +26,6 @@ public class ContactModificationTests extends TestBase {
             app.contact().create(new ContactData().withFirstname(properties.getProperty("contact.name"))
                     .withLastname(properties.getProperty("contact.lastName")).inGroup(groups.iterator().next()));
         }
-        logger.info("Идём на стартовую страницу");
-        app.goTo().homePage();
     }
 
     @Test

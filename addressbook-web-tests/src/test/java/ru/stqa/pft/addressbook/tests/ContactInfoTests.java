@@ -36,12 +36,11 @@ public class ContactInfoTests extends TestBase {
                     .withEmail3(properties.getProperty("contact.email3"))
                     .inGroup(groups.iterator().next()));
         }
-        logger.info("Идём на стартовую страницу");
-        app.goTo().homePage();
     }
 
     @Test
     public void testContactInfo() {
+
         logger.info("Выберем контакт для проверки данных");
         ContactData contact = app.contact().all().iterator().next();
         logger.info("Посмотрим данные на странице редактирования");
