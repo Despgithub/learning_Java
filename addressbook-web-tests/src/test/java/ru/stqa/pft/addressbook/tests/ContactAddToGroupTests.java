@@ -48,10 +48,13 @@ public class ContactAddToGroupTests extends TestBase {
         if (freeGroups.size() == 0) {
             app.goTo().groupPage();
             GroupData added = new GroupData();
-            app.group().create(added.withName("999"));
-            freeGroups.add(added);
+            app.group().create(added.withName("9_9_9").withHeader("8_8_8").withFooter("7_7_7"));
             app.goTo().homePage();
-
+            freeGroups.add(added);
+            Groups reload = app.db().groups();
+            Set<GroupData> afterReload = new HashSet<>(reload);
+            freeGroups.removeAll(contact.getGroups());
+            freeGroups = afterReload;
         }
         return freeGroups.iterator().next();
     }
