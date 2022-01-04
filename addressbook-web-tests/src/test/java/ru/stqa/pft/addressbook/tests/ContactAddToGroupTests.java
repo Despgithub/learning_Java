@@ -3,7 +3,9 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -32,7 +34,11 @@ public class ContactAddToGroupTests extends TestBase {
     @Test
     public void testContactAddToGroup() {
         app.goTo().homePage();
+        Contacts contacts = app.db().contacts();
+        Groups groups = app.db().groups();
+        ContactData addedContact = contacts.iterator().next();
+        GroupData groupToAdd = groups.iterator().next();
+        app.contact().addContactInGroup(addedContact, groupToAdd);
     }
-
 
 }

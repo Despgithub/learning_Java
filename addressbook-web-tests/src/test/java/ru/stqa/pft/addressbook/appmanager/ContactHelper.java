@@ -79,7 +79,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectGroup(GroupData group) {
-        new Select(wd.findElement(By.xpath("//select[@name='to_group']"))).selectByIndex(group.getId());
+        new Select(wd.findElement(By.xpath("//select[@name='to_group']"))).selectByValue(String.valueOf(group.getId()));
     }
 
     public void addToGroup() {
