@@ -78,12 +78,20 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    public void selectGroup(GroupData group) {
+    public void selectGroupForAdd(GroupData group) {
         new Select(wd.findElement(By.xpath("//select[@name='to_group']"))).selectByValue(String.valueOf(group.getId()));
     }
 
     public void addToGroup() {
         click(By.xpath("//input[@value='Add to']"));
+    }
+
+    public void removeFromGroup() {
+        wd.findElement(By.xpath("//input[@name='remove']")).click();
+    }
+
+    public void selectGroupForDelete(GroupData group) {
+        new Select(wd.findElement(By.xpath("//select[@name='group']"))).selectByValue(String.valueOf(group.getId()));
     }
 
     public void create(ContactData contact) {
@@ -108,6 +116,18 @@ public class ContactHelper extends HelperBase {
         contactCashe = null;
         closeAlert();
         returnContactPage();
+    }
+
+    public void addContactInGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.getId());
+        selectGroupForAdd(group);
+        addToGroup();
+    }
+
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
+        selectGroupForDelete(group);
+        selectContactById(contact.getId());
+        removeFromGroup();
     }
 
     public boolean isThereAContact() {
@@ -157,12 +177,6 @@ public class ContactHelper extends HelperBase {
         return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
                 .withAddress(address).withHomePhone(homephone).withMobile(mobile).withWorkPhone(workphone)
                 .withEmail(email).withEmail2(email2).withEmail3(email3).withSecondPhone(secondphone);
-    }
-
-    public void addContactInGroup(ContactData contact, GroupData group) {
-        selectContactById(contact.getId());
-        selectGroup(group);
-        addToGroup();
     }
 
 }
