@@ -47,6 +47,7 @@ public class ContactRemoveFromGroupTests extends TestBase {
                 i = i - 1;
             }
         }
+        // Тут идёт жуткий костыль на случай если ни 1 контакт не состоит в группе. Нужно переделать.
         if (i == 0) {
             app.contact().create(new ContactData().withFirstname("FirstnameTest").withLastname("LastnameTest")
                     .inGroup(groups.iterator().next()));
