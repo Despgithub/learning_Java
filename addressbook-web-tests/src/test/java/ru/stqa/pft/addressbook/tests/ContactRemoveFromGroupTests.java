@@ -32,16 +32,31 @@ public class ContactRemoveFromGroupTests extends TestBase {
     }
 
     public GroupData selectGroups(ContactData contact) {
-
         return contact.getGroups().iterator().next();
     }
 
     public ContactData selectContacts() {
         Contacts contacts = app.db().contacts();
+        Groups groups = app.db().groups();
+        int i = contacts.size();
         for (ContactData contact : contacts) {
             if (contact.getGroups().size() > 0) {
                 return contact;
             }
+            if (contact.getGroups().size() == 0) {
+                i = i - 1;
+            }
+        }
+        if (i == 0) {
+            app.contact().create(new ContactData().withFirstname("FirstnameTest").withLastname("LastnameTest")
+                    .inGroup(groups.iterator().next()));
+            Contacts contacts2 = app.db().contacts();
+            for (ContactData contact2 : contacts2) {
+                if (contact2.getGroups().size() > 0) {
+                    return contact2;
+                }
+            }
+            contacts = contacts2;
         }
         return contacts.iterator().next();
     }

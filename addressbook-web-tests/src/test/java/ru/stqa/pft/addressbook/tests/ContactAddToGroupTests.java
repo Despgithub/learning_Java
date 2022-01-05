@@ -36,27 +36,33 @@ public class ContactAddToGroupTests extends TestBase {
         Groups groups = app.db().groups();
         Set<GroupData> freeGroups = new HashSet<>(groups);
         freeGroups.removeAll(contact.getGroups());
-        if (freeGroups.size() == 0) {
-            app.goTo().groupPage();
-            GroupData added = new GroupData();
-            app.group().create(added.withName("9_9_9").withHeader("8_8_8").withFooter("7_7_7"));
-            app.goTo().homePage();
-            freeGroups.add(added);
-            Groups reload = app.db().groups();
-            Set<GroupData> afterReload = new HashSet<>(reload);
-            freeGroups.removeAll(contact.getGroups());
-            freeGroups = afterReload;
-        }
         return freeGroups.iterator().next();
     }
 
     public ContactData selectContacts() {
         Contacts contacts = app.db().contacts();
         Groups groups = app.db().groups();
+        int i = contacts.size();
         for (ContactData contact : contacts) {
             if (contact.getGroups().size() < groups.size()) {
                 return contact;
             }
+            if (contact.getGroups().size() == groups.size()) {
+                i = i - 1;
+            }
+        }
+        if (i == 0) {
+            app.goTo().groupPage();
+            Contacts contacts2 = app.db().contacts();
+            GroupData added = new GroupData();
+            app.group().create(added.withName("NameTest").withHeader("HeaderTest").withFooter("FooterTest"));
+            app.goTo().homePage();
+            for (ContactData contact2 : contacts2) {
+                if (contact2.getGroups().size() > 0) {
+                    return contact2;
+                }
+            }
+            contacts = contacts2;
         }
         return contacts.iterator().next();
     }
