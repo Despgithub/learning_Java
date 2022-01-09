@@ -63,7 +63,7 @@ public class ContactAddToGroupTests extends TestBase {
                 i = i - 1;
             }
         }
-        // Тут идёт жуткий костыль на случай если у всех контактов максимум групп не состоит в группе. Нужно переделать.
+        // Тут идёт жуткий костыль на случай если у всех контактов максимум групп. Нужно переделать.
         if (i == 0) {
             app.goTo().groupPage();
             Contacts contacts2 = app.db().contacts();
