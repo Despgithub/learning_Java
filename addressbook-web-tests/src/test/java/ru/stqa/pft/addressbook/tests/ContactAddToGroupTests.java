@@ -10,6 +10,9 @@ import ru.stqa.pft.addressbook.model.Groups;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class ContactAddToGroupTests extends TestBase {
 
 
@@ -28,8 +31,17 @@ public class ContactAddToGroupTests extends TestBase {
     public void testContactAddToGroup() {
         app.goTo().homePage();
         ContactData addedContact = selectContacts();
+        Groups before = addedContact.getGroups();
         GroupData groupToAdd = selectGroups(addedContact);
         app.contact().addContactInGroup(addedContact, groupToAdd);
+        Contacts contacts = app.db().contacts();
+        Groups after = null;
+        for (ContactData contact : contacts) {
+            if (contact.getId() == addedContact.getId()) {
+                after = contact.getGroups();
+            }
+        }
+        assertThat(after, equalTo(before.withAdded(groupToAdd)));
     }
 
     public GroupData selectGroups(ContactData contact) {

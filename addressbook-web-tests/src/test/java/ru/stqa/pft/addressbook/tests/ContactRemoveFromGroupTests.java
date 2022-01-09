@@ -7,6 +7,9 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class ContactRemoveFromGroupTests extends TestBase {
 
     @BeforeMethod
@@ -27,8 +30,17 @@ public class ContactRemoveFromGroupTests extends TestBase {
     public void testContactRemoveFromGroup() {
         app.goTo().homePage();
         ContactData addedContact = selectContacts();
+        Groups before = addedContact.getGroups();
         GroupData groupToAdd = selectGroups(addedContact);
         app.contact().removeContactFromGroup(addedContact, groupToAdd);
+        Contacts contacts = app.db().contacts();
+        Groups after = null;
+        for (ContactData contact : contacts) {
+            if (contact.getId() == addedContact.getId()) {
+                after = contact.getGroups();
+            }
+        }
+        assertThat(after, equalTo(before.without(groupToAdd)));
     }
 
     public GroupData selectGroups(ContactData contact) {
