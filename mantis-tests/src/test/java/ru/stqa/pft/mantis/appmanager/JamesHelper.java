@@ -63,12 +63,12 @@ public class JamesHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        readUntil("Login id:");
-        write("");
-        readUntil("Password:");
-        write("");
-        readUntil("Login id:");
+//        readUntil("Login id:");
+//        write("");
+//        readUntil("Password:");
+//        write("");
 
+        readUntil("Login id:");
         write(login);
         readUntil("Password:");
         write(password);
