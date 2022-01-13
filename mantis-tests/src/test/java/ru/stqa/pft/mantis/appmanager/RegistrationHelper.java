@@ -21,4 +21,20 @@ public class RegistrationHelper extends HelperBase {
         type(By.name("password_confirm"), password);
         click(By.xpath("//button[@type='submit']"));
     }
+
+    public void resetPassword(String username) {
+        wd.get(app.getProperty("web.baseUrl") + "/manage_user_page.php");
+        click(By.linkText(username));
+        click(By.xpath("//input[@value='Сбросить пароль']"));
+    }
+
+    public void loginFromUI(String username, String password) {
+        wd.get(app.getProperty("web.baseUrl") + "/login_page.php");
+        click(By.xpath("//input[@type='submit']"));
+        type(By.name("username"), username);
+        click(By.xpath("//input[@type='submit']"));
+        type(By.name("password"), password);
+        click(By.xpath("//input[@type='submit']"));
+    }
+
 }
