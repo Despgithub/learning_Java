@@ -29,4 +29,11 @@ public class SoapTests extends TestBase {
         Issue created = app.soap().addIssue(issue);
         assertEquals(issue.getSummary(), created.getSummary());
     }
+
+    @Test
+    public void testPrint() throws MalformedURLException, ServiceException, RemoteException {
+        skipIfNotFixed(1);
+        System.out.println("Багрепорт решен либо закрыт");
+    }
+
 }

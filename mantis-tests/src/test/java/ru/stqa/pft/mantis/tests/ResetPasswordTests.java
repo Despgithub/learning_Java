@@ -35,7 +35,6 @@ public class ResetPasswordTests extends TestBase {
                 selectedUser = select;
             i++;
         }
-        // UserData selectedUser = users.iterator().next();
         String username = Objects.requireNonNull(selectedUser).getUsername();
         String email = selectedUser.getEmail();
         String newPassword = ("password2");
