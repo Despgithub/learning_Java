@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
-public class RestAssuredTests {
+public class RestAssuredTests extends TestBase {
 
     @BeforeClass
     public void init() {
@@ -33,7 +33,8 @@ public class RestAssuredTests {
         String json = RestAssured.get("https://bugify.stqa.ru/api/issues.json").asString();
         JsonElement parsed = JsonParser.parseString(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
-        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
+        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
+        }.getType());
     }
 
     private int createIssue(Issue newIssue) {

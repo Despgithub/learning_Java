@@ -14,7 +14,7 @@ import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
-public class RestTests {
+public class RestTests extends TestBase {
 
     @Test
     public void testCreateIssue() throws IOException {
@@ -30,7 +30,8 @@ public class RestTests {
         String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json")).returnContent().asString();
         JsonElement parsed = JsonParser.parseString(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
-        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {}.getType());
+        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
+        }.getType());
     }
 
     private Executor getExecutor() {
@@ -43,6 +44,12 @@ public class RestTests {
                         new BasicNameValuePair("description", newIssue.getDescription()))).returnContent().asString();
         JsonElement parsed = JsonParser.parseString(json);
         return parsed.getAsJsonObject().get("issue_id").getAsInt();
+    }
+
+    @Test
+    public void testPrint() throws IOException {
+        skipIfNotFixed(1697); //1697 "Closed", 1698 "Resolved", 1699 "In Progress", 1700 "Open"
+        System.out.println("Багрепорт решен либо закрыт");
     }
 
 }
