@@ -29,10 +29,7 @@ public class TestBase {
 
     boolean isIssueOpen(int issueId) throws IOException {
         String status = getIssueStatus(issueId);
-        if ((status.equals("Closed")) || (status.equals("Resolved"))) {
-            return false;
-        }
-        return true;
+        return (!status.equals("Closed")) && (!status.equals("Resolved"));
     }
 
     public void skipIfNotFixed(int issueId) throws IOException {
