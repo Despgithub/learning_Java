@@ -7,9 +7,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Properties;
 
@@ -33,22 +36,28 @@ public class ApplicationManager {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
         dbHelper = new DbHelper();
-        switch (browser) {
-            case BrowserType.CHROME:
-                wd = new ChromeDriver();
-                break;
-            case BrowserType.FIREFOX:
-                wd = new FirefoxDriver();
-                break;
-            case BrowserType.IE:
-                wd = new InternetExplorerDriver();
-                break;
-            case BrowserType.EDGE:
-                wd = new EdgeDriver();
-                break;
-            case BrowserType.OPERA:
-                wd = new OperaDriver();
-                break;
+        if ("".equals(properties.getProperty("selenium.server"))) {
+            switch (browser) {
+                case BrowserType.CHROME:
+                    wd = new ChromeDriver();
+                    break;
+                case BrowserType.FIREFOX:
+                    wd = new FirefoxDriver();
+                    break;
+                case BrowserType.IE:
+                    wd = new InternetExplorerDriver();
+                    break;
+                case BrowserType.EDGE:
+                    wd = new EdgeDriver();
+                    break;
+                case BrowserType.OPERA:
+                    wd = new OperaDriver();
+                    break;
+            }
+        } else {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setBrowserName(browser);
+            wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
         }
         wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
         wd.get(properties.getProperty("web.baseUrl"));
