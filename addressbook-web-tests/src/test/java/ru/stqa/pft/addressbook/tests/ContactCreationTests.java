@@ -24,7 +24,6 @@ public class ContactCreationTests extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContactsFromXml() throws IOException {
-        logger.info("Загрузим контакты из файла .xml");
         try (BufferedReader reader = new BufferedReader(new FileReader(("src/test/resources/contacts.xml")))) {
             String xml = "";
             String line = reader.readLine();
@@ -57,13 +56,9 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void testContactCreation() throws IOException {
-        logger.info("Идём на стартовую страницу");
         app.goTo().homePage();
-        logger.info("Считаем контакты до создания");
         Contacts before = app.db().contacts();
-        logger.info("Перейдем на страницу создания контактов");
         app.contact().createContactPage();
-        logger.info("Создаём контакт");
         Groups groups = app.db().groups();
         Properties properties = new Properties();
         String target = System.getProperty("target", "local");
@@ -71,11 +66,8 @@ public class ContactCreationTests extends TestBase {
         ContactData contact = new ContactData().withFirstname(properties.getProperty("contact.name"))
                 .withLastname(properties.getProperty("contact.lastName")).inGroup(groups.iterator().next());
         app.contact().create(contact);
-        logger.info("Убедимся, что количество контактов увеличилось на 1");
         assertThat(app.contact().Count(), equalTo(before.size() + 1));
-        logger.info("Считаем контакты после создания");
         Contacts after = app.db().contacts();
-        logger.info("Убедимся, что создался нужный контакт");
         assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
         verifyContactListInUI();
     }

@@ -19,7 +19,6 @@ public class ContactInfoTests extends TestBase {
     @BeforeMethod
     public void insurePreconditions() throws IOException {
         if (app.db().contacts().size() == 0) {
-            logger.info("Упс...контактов нет, не беда - создадим");
             Groups groups = app.db().groups();
             Properties properties = new Properties();
             String target = System.getProperty("target", "local");
@@ -41,15 +40,10 @@ public class ContactInfoTests extends TestBase {
     @Test
     public void testContactInfo() {
 
-        logger.info("Выберем контакт для проверки данных");
         ContactData contact = app.contact().all().iterator().next();
-        logger.info("Посмотрим данные на странице редактирования");
         ContactData contactInfoFormEditForm = app.contact().infoFromEditForm(contact);
-        logger.info("Сверим номера телефонов");
         assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFormEditForm)));
-        logger.info("Сверим электронную почту");
         assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFormEditForm)));
-        logger.info("Сверим адрес");
         assertThat(contact.getAddress(), equalTo(mergeAddress(contactInfoFormEditForm)));
         verifyContactListInUI();
     }
